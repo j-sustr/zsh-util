@@ -1,0 +1,15 @@
+
+
+# Git commit all
+__gca() {
+    if [ "$#" -gt 0 ]; then
+        message="$*"
+    else
+        message="WIP"
+    fi;
+
+    git add .;
+    git commit -m "$message" --no-verify;
+}
+
+__gca "$@"
