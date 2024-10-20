@@ -5,7 +5,7 @@
 1. Clone the repo to your home dir
 
 ```sh
-git clone {repo-name} ~/.zsh-util
+git clone https://github.com/j-sustr/zsh-util.git ~/.zsh-util
 ```
 
 
