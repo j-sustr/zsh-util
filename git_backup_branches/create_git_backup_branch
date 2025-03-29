@@ -5,7 +5,7 @@ __create_git_backup_branch() {
   fi
 
   latest_branch="$(get_latest_git_backup_branch)"
-  if [ $? -ne 0 ]; then
+  if [ $? -ne 0 ] && [ $? -ne 2 ]; then
     echo "Aborting creation of a new backup branch."
     return 1
   fi
