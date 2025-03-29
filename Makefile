@@ -2,7 +2,9 @@ SRC_DIRS := git git_backup_branches python
 
 BUILD_DIR := build
 
-.PHONY: build clean
+.PHONY: all build clean
+
+all: build
 
 build: clean
 	@echo "Creating destination directory '$(BUILD_DIR)'..."
