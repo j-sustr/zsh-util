@@ -1,0 +1,13 @@
+
+
+__test_backup_branch() {
+    current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+    if [[ "$current_branch" =~ --backup[0-9]+$ ]]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+__test_backup_branch
