@@ -5,11 +5,31 @@ __create_backup_branch() {
     return 1
   fi
 
-  current_branch=$(git rev-parse --abbrev-ref HEAD)
-  backup_branch="${current_branch}--backup1"
-  
-  git branch "$backup_branch"
-  echo "Created backup branch: $backup_branch"
+  latest_branch="$(get_latest_backup_branch)"
+
+  if [ $? -ne 0 ]; then
+    echo "Aborting creation of a new backup branch."
+    return 1
+  fi
+
+   # Determine the new backup number:
+  if [ -z "$latest_branch" ]; then
+    new_number=1
+  else
+    # Extract the backup number from the branch name.
+    # The pattern '--backup<number>' is assumed at the end of the branch name.
+    backup_number=$(echo "$latest_branch" | grep -oE '--backup[0-9]+$' | grep -oE '[0-9]+')
+    # If extraction fails, default to 0
+    backup_number=${backup_number:-0}
+    new_number=$((backup_number + 1))
+  fi
+
+  # Define the new backup branch name.
+  # Modify the prefix if you need a different naming scheme.
+  new_branch="backup--backup${new_number}"
+
+  # Create the new branch (here using git; adjust if necessary)
+  git branch "$new_branch" && echo "Created new backup branch: $new_branch"
 }
 
 __create_backup_branch
