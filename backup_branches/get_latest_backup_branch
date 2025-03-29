@@ -7,11 +7,11 @@ __get_latest_backup_branch() {
     | cut -d' ' -f2-)
   
   if [ -z "$latest_branch" ]; then
-    echo "No backup branch found."
+    echo "Error: No backup branch found." >&2
+    exit 1
   else
-    echo "The latest backup branch is: $latest_branch"
+    echo "$latest_branch"
   fi
 }
 
-# Example usage:
 __get_latest_backup_branch
