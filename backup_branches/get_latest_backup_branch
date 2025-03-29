@@ -1,0 +1,17 @@
+__get_latest_backup_branch() {
+  latest_branch=$(list_backup_branches \
+    | grep -E '\-\-backup[0-9]+$' \
+    | awk -F'--backup' '{print $2, $0}' \
+    | sort -n \
+    | tail -n 1 \
+    | cut -d' ' -f2-)
+  
+  if [ -z "$latest_branch" ]; then
+    echo "No backup branch found."
+  else
+    echo "The latest backup branch is: $latest_branch"
+  fi
+}
+
+# Example usage:
+__get_latest_backup_branch

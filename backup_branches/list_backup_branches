@@ -1,0 +1,10 @@
+
+__list_backup_branches() {
+    current_branch=$(git rev-parse --abbrev-ref HEAD)
+    
+    git branch --list "${current_branch}--backup*" \
+        | sed 's/^[* ]*//' \
+        | egrep -e '--backup[0-9]+$'
+}
+
+__list_backup_branches

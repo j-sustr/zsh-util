@@ -1,0 +1,12 @@
+
+__create_backup_branch() {
+  current_branch=$(git rev-parse --abbrev-ref HEAD)
+  backup_branch="${current_branch}--backup1"
+  
+  git branch "$backup_branch"
+  echo "Created backup branch: $backup_branch"
+}
+
+__create_backup_branch
+
+
