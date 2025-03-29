@@ -8,10 +8,16 @@
 git clone https://github.com/j-sustr/zsh-util.git ~/.zsh-util
 ```
 
-
-2. Add this line to the top of your `~/.zshrc` file
+2. Run `make` to build the project
 
 ```sh
-fpath=(~/.zsh-util $fpath);
+make
+```
+
+
+3. Add this line to the top of your `~/.zshrc` file
+
+```sh
+fpath=(~/.zsh-util/build $fpath);
 autoload -U $fpath[1]/*(.:t)
 ```
