@@ -1,0 +1,21 @@
+__get_latest_git_backup_branch() {
+  if is_backup_branch; then
+    echo >&2 "You are currently on a backup branch."
+    return 1
+  fi
+
+  latest_branch=$(list_backup_branches \
+    | awk -F'--backup' '{print $2, $0}' \
+    | sort -n \
+    | tail -n 1 \
+    | cut -d' ' -f2-)
+  
+  if [ -z "$latest_branch" ]; then
+    return 2
+  fi
+
+  echo "$latest_branch"
+  return 0
+}
+
+__get_latest_git_backup_branch
