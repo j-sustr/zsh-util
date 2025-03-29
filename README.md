@@ -9,9 +9,9 @@ git clone https://github.com/j-sustr/zsh-util.git ~/.zsh-util
 ```
 
 
-2. Add this line to the top of your `~/.zshrc` file
+3. Add this line to the top of your `~/.zshrc` file
 
 ```sh
-fpath=(~/.zsh-util $fpath);
+fpath=(~/.zsh-util/build $fpath);
 autoload -U $fpath[1]/*(.:t)
 ```
