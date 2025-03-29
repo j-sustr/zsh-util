@@ -1,5 +1,5 @@
 
-__create_backup_branch() {
+__create_git_branch_backup() {
   if is_backup_branch; then
     echo >&2 "You are currently on a backup branch."
     return 1
@@ -32,6 +32,6 @@ __create_backup_branch() {
   git branch "$new_branch" && echo "Created new backup branch: $new_branch"
 }
 
-__create_backup_branch
+__create_git_branch_backup
 
 
