@@ -1,6 +1,6 @@
 __get_latest_backup_branch() {
   if is_backup_branch; then
-    echo "You are currently on a backup branch."
+    echo >&2 "You are currently on a backup branch."
     return 1
   fi
 
@@ -12,10 +12,11 @@ __get_latest_backup_branch() {
     | cut -d' ' -f2-)
   
   if [ -z "$latest_branch" ]; then
-    echo ""
-  else
-    echo "$latest_branch"
+    return 2
   fi
+
+  echo "$latest_branch"
+  return 0
 }
 
 __get_latest_backup_branch
