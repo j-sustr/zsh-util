@@ -1,5 +1,5 @@
 
-__list_backup_branches() {
+__list_git_backup_branches() {
     if is_backup_branch; then
         echo >&2 "You are currently on a backup branch."
         return 1
@@ -12,4 +12,4 @@ __list_backup_branches() {
         | egrep -e '--backup[0-9]+$'
 }
 
-__list_backup_branches
+__list_git_backup_branches

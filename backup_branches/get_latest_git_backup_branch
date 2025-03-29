@@ -1,4 +1,4 @@
-__get_latest_backup_branch() {
+__get_latest_git_backup_branch() {
   if is_backup_branch; then
     echo >&2 "You are currently on a backup branch."
     return 1
@@ -18,4 +18,4 @@ __get_latest_backup_branch() {
   return 0
 }
 
-__get_latest_backup_branch
+__get_latest_git_backup_branch
