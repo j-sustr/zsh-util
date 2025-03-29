@@ -1,5 +1,10 @@
 
 __list_backup_branches() {
+    if is_backup_branch; then
+        echo "You are currently on a backup branch."
+        return 1
+    fi
+    
     current_branch=$(git rev-parse --abbrev-ref HEAD)
     
     git branch --list "${current_branch}--backup*" \
