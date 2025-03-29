@@ -1,7 +1,7 @@
 
 __create_backup_branch() {
   if is_backup_branch; then
-    echo "You are currently on a backup branch."
+    echo >&2 "You are currently on a backup branch."
     return 1
   fi
 
