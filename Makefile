@@ -4,7 +4,7 @@ BUILD_DIR := build
 
 .PHONY: build clean
 
-build:
+build: clean
 	@echo "Creating destination directory '$(BUILD_DIR)'..."
 	mkdir -p $(BUILD_DIR)
 	@echo "Copying files from source directories into '$(BUILD_DIR)'..."
