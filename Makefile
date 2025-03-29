@@ -1,4 +1,4 @@
-SRC_DIRS := git backup_branches python
+SRC_DIRS := git git_backup_branches python
 
 BUILD_DIR := build
 
