@@ -18,7 +18,7 @@ __create_git_branch_backup() {
   else
     # Extract the backup number from the branch name.
     # The pattern '--backup<number>' is assumed at the end of the branch name.
-    backup_number=$(echo "$latest_branch" | grep -oE '--backup[0-9]+$' | grep -oE '[0-9]+')
+    backup_number=$(echo "$latest_branch" | egrep -e '--backup[0-9]+$' | egrep -oe '[0-9]+')
     # If extraction fails, default to 0
     backup_number=${backup_number:-0}
     new_number=$((backup_number + 1))
