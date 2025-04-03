@@ -1,29 +1,49 @@
 __create_git_backup_branch() {
   if is_git_backup_branch; then
-    echo >&2 "You are currently on a backup branch."
+    echo >&2 "Aborting: Cannot create a backup branch because you are currently on one."
     return 1
   fi
 
   latest_branch="$(get_latest_git_backup_branch)"
-  if [ $? -ne 0 ] && [ $? -ne 2 ]; then
-    echo "Aborting creation of a new backup branch."
+  local get_branch_exit_code=$?
+
+  if [ "$get_branch_exit_code" -ne 0 ] && [ "$get_branch_exit_code" -ne 2 ]; then
+    echo >&2 "Aborting: Failed to determine the latest backup branch."
+    echo >&2 "Reason: 'get_latest_git_backup_branch' exited with status code $get_branch_exit_code."
     return 1
   fi
 
+  local new_number
   if [ -z "$latest_branch" ]; then
     new_number=1
   else
+    local backup_number
     backup_number=$(echo "$latest_branch" | egrep -e '--backup[0-9]+$' | egrep -oe '[0-9]+')
-    # If extraction fails, default to 0
     backup_number=${backup_number:-0}
     new_number=$((backup_number + 1))
   fi
 
+  local current_branch
   current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  if [ -z "$current_branch" ] || [ "$current_branch" = "HEAD" ]; then
+      echo >&2 "Aborting: Could not determine current branch name or you are in a detached HEAD state."
+      return 1
+  fi
+
+  local padded_number
+  local new_branch
   padded_number=$(printf "%03d" "$new_number")
   new_branch="${current_branch}--backup${padded_number}"
 
-  git branch "$new_branch" && echo "Created new backup branch: $new_branch"
+  if git branch "$new_branch"; then
+    echo "Created new backup branch: $new_branch"
+    return 0
+  else
+    local create_exit_code=$?
+    echo >&2 "Aborting: Failed to create the new backup branch '$new_branch'."
+    echo >&2 "Reason: 'git branch' command failed with exit code $create_exit_code."
+    return 1
+  fi
 }
 
 __create_git_backup_branch
