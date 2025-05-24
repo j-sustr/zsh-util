@@ -1,0 +1,17 @@
+
+__create_gitignore() {
+    local content=$(cat << EOF
+node_modules/
+npm-debug.log*
+.env
+.DS_Store
+coverage/
+dist/
+EOF
+    )
+
+    echo -e "$content" > .gitignore
+    echo "Created a .gitignore file for Node.js"
+}
+
+__create_gitignore
