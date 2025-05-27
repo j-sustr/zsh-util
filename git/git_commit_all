@@ -5,7 +5,7 @@ __gca() {
     if [ "$#" -gt 0 ]; then
         message="$*"
     else
-        message="WIP"
+        message="u"
     fi;
 
     git add .;
