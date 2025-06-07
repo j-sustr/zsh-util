@@ -1,5 +1,10 @@
 
 __create_gitignore() {
+    if [ -f ".gitignore" ]; then
+        echo "Error: .gitignore file already exists. Aborting." >&2
+        return 1
+    fi
+
     local content=$(cat << EOF
 node_modules/
 npm-debug.log*
