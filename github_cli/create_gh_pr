@@ -1,0 +1,53 @@
+
+
+# ghpr_auto: A Zsh function to automate 'gh pr create' parameters.
+# It automatically determines the --head parameter (owner/repo:branch)
+# and uses --fill to generate the title and body from commit messages.
+#
+# Usage:
+#   Add this function to your ~/.zshrc file.
+#   Then, you can use it like: ghpr_auto
+#   Any additional arguments passed to ghpr_auto will be forwarded to 'gh pr create'.
+#   Example: ghpr_auto --draft --reviewer octocat
+#
+__create_gh_pr() {
+  local current_branch
+  local remote_url
+  local owner_repo
+  local full_head_param
+
+  # Get the name of the current Git branch.
+  # '2>/dev/null' suppresses error messages if not in a Git repo.
+  current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  if [ -z "$current_branch" ]; then
+    echo "Error: Not in a Git repository or no branch found." >&2
+    return 1
+  fi
+
+  # Get the URL of the 'origin' remote.
+  remote_url=$(git remote get-url origin 2>/dev/null)
+  if [ -z "$remote_url" ]; then
+    echo "Error: 'origin' remote not found. Ensure your repository has an 'origin' remote." >&2
+    return 1
+  fi
+
+  # Extract the 'owner/repo' part from the remote URL.
+  # This sed command handles both HTTPS (https://github.com/owner/repo.git)
+  # and SSH (git@github.com:owner/repo.git) formats.
+  owner_repo=$(echo "$remote_url" | sed -E 's/^(git@|https:\/\/).*github.com(:|\/)(.*)\.git$/\3/')
+  if [ -z "$owner_repo" ]; then
+    echo "Error: Could not parse owner/repo from remote URL: $remote_url" >&2
+    return 1
+  fi
+
+  # Combine owner/repo and current branch to form the --head parameter.
+  full_head_param="${owner_repo}:${current_branch}"
+
+  echo "Attempting to create PR for: ${full_head_param}"
+  echo "Using commit messages for title and body (--fill)."
+
+  # Execute the 'gh pr create' command with the determined --head and --fill.
+  # "$@" forwards any additional arguments passed to ghpr_auto.
+  gh pr create --head "${full_head_param}" --fill "$@"
+}
+__create_gh_pr
