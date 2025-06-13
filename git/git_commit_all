@@ -1,7 +1,6 @@
 
 
-# Git commit all
-__gca() {
+__git_commit_all() {
     if [ "$#" -gt 0 ]; then
         message="$*"
     else
@@ -12,4 +11,4 @@ __gca() {
     git commit -m "$message" --no-verify;
 }
 
-__gca "$@"
+__git_commit_all "$@"
