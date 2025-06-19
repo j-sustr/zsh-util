@@ -1,7 +1,12 @@
 
-__cleannode() {
-  find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
+__clean_nodemodules_tree() {
+  echo "Starting cleanup of node_modules directories..."
+  NODEMODULES_COUNT=$(find . -name "node_modules" -type d -prune | wc -l)
+  echo "Found $NODEMODULES_COUNT node_modules directories."
+  
+  find . -name "node_modules" -type d -print -prune -exec rm -rf '{}' +
+  
   echo "Cleaned up node_modules directories."
 }
 
-__cleannode
+__clean_nodemodules_tree
