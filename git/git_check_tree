@@ -1,0 +1,22 @@
+
+
+__git_check_tree() {
+  local target_path="${1:-.}"
+
+  find "$target_path" -type d -name ".git" | while read -r git_dir; do
+    local repo_dir=$(dirname "$git_dir")
+    
+    pushd "$repo_dir" > /dev/null
+    
+    if ! git status --porcelain=v1 | grep -q .; then
+      echo "Clean: $repo_dir"
+    else
+      echo "Changes in: $repo_dir"
+      git status -s
+    fi
+    
+    popd > /dev/null
+  done
+}
+
+__git_check_tree
