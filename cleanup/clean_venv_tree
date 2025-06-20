@@ -1,0 +1,11 @@
+__clean_venv_tree() {
+  echo "Starting cleanup of Python virtual environments..."
+  VENV_COUNT=$(find . -name ".venv" -type d -prune | wc -l)
+  echo "Found $VENV_COUNT Python virtual environments."
+  
+  find . -name ".venv" -type d -print -prune -exec rm -rf '{}' +
+  
+  echo "Cleaned up Python virtual environments."
+}
+
+__clean_venv_tree
