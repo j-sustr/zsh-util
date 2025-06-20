@@ -1,0 +1,21 @@
+
+
+__purge_dirs() {
+  if [ -z "$1" ]; then
+    echo "Usage: purge_dirs <dir_name_to_delete>"
+    return 1
+  fi
+
+  local DIR_TO_DELETE="$1"
+  echo "Starting purging of dirs named \"$DIR_TO_DELETE\"..."
+
+  DELETE_COUNT=$(find . -name "$DIR_TO_DELETE" -type d -prune | wc -l)
+  echo "Found $DELETE_COUNT dirs named \"$DIR_TO_DELETE\"."
+
+  find . -name "$DIR_TO_DELETE" -type d -print -prune -exec rm -rf '{}' +
+
+  echo "Purged dirs named \"$DIR_TO_DELETE\"."
+}
+
+
+__purge_dirs "$1"
