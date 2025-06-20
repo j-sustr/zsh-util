@@ -1,21 +1,21 @@
 
 
-__clean_dirtree_folder() {
+__purge_directories() {
   if [ -z "$1" ]; then
-    echo "Usage: __clean_dirtree_folder <folder_name_to_delete>"
+    echo "Usage: purge_directories <folder_name_to_delete>"
     return 1
   fi
 
   local FOLDER_NAME_TO_DELETE="$1"
-  echo "Starting cleanup of folders named \"$FOLDER_NAME_TO_DELETE\"..."
+  echo "Starting purging of folders named \"$FOLDER_NAME_TO_DELETE\"..."
 
   DELETE_COUNT=$(find . -name "$FOLDER_NAME_TO_DELETE" -type d -prune | wc -l)
   echo "Found $DELETE_COUNT folders named \"$FOLDER_NAME_TO_DELETE\"."
 
   find . -name "$FOLDER_NAME_TO_DELETE" -type d -print -prune -exec rm -rf '{}' +
 
-  echo "Cleaned up folders named \"$FOLDER_NAME_TO_DELETE\"."
+  echo "Purged folders named \"$FOLDER_NAME_TO_DELETE\"."
 }
 
 
-__clean_dirtree_folder "$1"
+__purge_directories "$1"
