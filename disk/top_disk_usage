@@ -2,7 +2,7 @@
 
 __top_disk_usage() {
   local depth=${1:-3}
-  du -h -d "${depth}" . | sort -hr | head -n 50
+  du -h -a "${depth}" . | sort -hr | head -n 50
 }
 
 __top_disk_usage "$@"
