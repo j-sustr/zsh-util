@@ -5,4 +5,4 @@ __top_disk_usage() {
   du -h -d "${depth}" . | sort -hr | head -n 50
 }
 
-__top_disk_usage
+__top_disk_usage "$@"
