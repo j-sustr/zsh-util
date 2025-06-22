@@ -1,4 +1,4 @@
-SRC_DIRS := git git_backup_branches github_cli gitignore python cleanup
+SRC_DIRS := git git_backup_branches github_cli gitignore python cleanup disk
 
 BUILD_DIR := build
 
