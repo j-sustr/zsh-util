@@ -1,5 +1,7 @@
 # ZSH Util
 
+A collection of various ZSH utilities that streamline common tasks for me
+
 ## Installation
 
 1. Clone the repo to your home dir
