@@ -1,0 +1,6 @@
+
+__tree_js() {
+    tree -I 'node_modules'
+}
+
+__tree_js
