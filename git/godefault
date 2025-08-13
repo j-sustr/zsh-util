@@ -1,0 +1,5 @@
+
+
+__godefault() { git switch "$(git symbolic-ref --short refs/remotes/origin/HEAD | cut -d/ -f3)"; }  # origin/main or origin/master
+
+__godefault
