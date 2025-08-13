@@ -1,5 +1,7 @@
 
 
-__groot() { cd "$(git rev-parse --show-toplevel 2>/dev/null || echo .)"; }
+__groot() { 
+    cd "$(git rev-parse --show-toplevel 2>/dev/null || echo .)"; 
+}
 
 __groot
