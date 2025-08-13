@@ -1,5 +1,15 @@
 
 
-__godefault() { git switch "$(git symbolic-ref --short refs/remotes/origin/HEAD | cut -d/ -f3)"; }  # origin/main or origin/master
+__godefault() { 
+  local branch
+  branch=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null)
+  if [[ -z "$branch" ]]; then
+    # fallback: parse default branch from ls-remote
+    branch=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
+  else
+    branch="${branch##*/}"
+  fi
+  git switch "$branch"
+}
 
 __godefault
