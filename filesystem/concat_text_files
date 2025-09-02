@@ -1,4 +1,15 @@
 
+__comment_symbol() {
+  local f="$1"
+  case "$f" in
+    *.ts|*.js|*.jsx|*.tsx|*.c|*.h|*.cpp|*.hpp) echo "//" ;;
+    *.py|*.sh|*.zsh|*.rb) echo "#" ;;
+    *.sql) echo "--" ;;
+    *.md) echo "<!--" ;;  # we'll close it inline
+    *) echo "###" ;;
+  esac
+}
+
 __concat_text_files() {
   local dir="${1:-.}"     # default to current dir if none given
   local ext="${2:-}"      # optional extension (e.g. .ts, .js)
@@ -14,9 +25,14 @@ __concat_text_files() {
       fi
     done
   fi | while IFS= read -r f; do
-    echo "### FILE: $f"
+    local symbol="$(__comment_symbol "$f")"
+    if [[ "$symbol" == "<!--" ]]; then
+      echo "$symbol FILE: $f -->"
+    else
+      echo "$symbol FILE: $f"
+    fi
     cat "$f"
-    echo "\n"
+    echo -e "\n"
   done
 }
 
