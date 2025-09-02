@@ -1,14 +1,22 @@
 
 __concat_text_files() {
-  local dir="${1:-.}"   # default to current dir if none given
+  local dir="${1:-.}"     # default to current dir if none given
+  local ext="${2:-}"      # optional extension (e.g. .ts, .js)
 
-  find "$dir" -type f | while IFS= read -r f; do
-    if file --mime "$f" | grep -q "text/"; then
-      echo "### FILE: $f"
-      cat "$f"
-      echo "\n"
-    fi
+  if [[ -n "$ext" ]]; then
+    # filter by extension
+    find "$dir" -type f -name "*$ext"
+  else
+    # all text files by MIME type
+    find "$dir" -type f | while IFS= read -r f; do
+      if file --mime "$f" | grep -q "text/"; then
+        echo "$f"
+      fi
+    done
+  fi | while IFS= read -r f; do
+    echo "### FILE: $f"
+    cat "$f"
+    echo "\n"
   done
 }
 
-__concat_text_files "$@"
