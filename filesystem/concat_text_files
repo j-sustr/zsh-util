@@ -1,0 +1,14 @@
+
+__concat_text_files() {
+  local dir="${1:-.}"   # default to current dir if none given
+
+  find "$dir" -type f | while IFS= read -r f; do
+    if file --mime "$f" | grep -q "text/"; then
+      echo "### FILE: $f"
+      cat "$f"
+      echo "\n"
+    fi
+  done
+}
+
+__concat_text_files "$@"
