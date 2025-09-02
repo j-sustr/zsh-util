@@ -20,3 +20,5 @@ __concat_text_files() {
   done
 }
 
+__concat_text_files "$@"
+
