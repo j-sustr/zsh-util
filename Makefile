@@ -1,4 +1,4 @@
-SRC_DIRS := git git_backup_branches github_cli gitignore javascript python cleanup disk meta filesystem
+SRC_DIRS := git git_backup_branches github_cli gitignore javascript python cleanup disk meta filesystem time
 
 BUILD_DIR := build
 

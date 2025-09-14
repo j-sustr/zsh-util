@@ -1,0 +1,7 @@
+
+
+__dateymd() {
+  date +"%Y-%m-%d"
+}
+
+__dateymd
