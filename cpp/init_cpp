@@ -32,6 +32,8 @@ add_executable(\${PROJECT_NAME} src/main.cpp)
 target_include_directories(\${PROJECT_NAME} PRIVATE include)
 EOF
 
+  cd ..
+
   echo "✅ C++ project '$PROJECT_NAME' initialized."
   echo "Next steps:"
   echo "  cd build"
