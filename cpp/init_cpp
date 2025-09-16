@@ -10,6 +10,8 @@ __init_cpp() {
   mkdir -p "$PROJECT_NAME"/{src,include,build}
   cd "$PROJECT_NAME" || return 1
 
+  create_gitignore_cpp
+
   cat > src/main.cpp <<EOF
 #include <iostream>
 
@@ -38,4 +40,4 @@ EOF
   echo "  ./\$PROJECT_NAME"
 }
 
-__init_cpp
+__init_cpp "$@"
