@@ -1,0 +1,41 @@
+
+
+__init_cpp() {
+  if [ -z "$1" ]; then
+    echo "Usage: init_cpp <project-name>"
+    return 1
+  fi
+
+  PROJECT_NAME="$1"
+  mkdir -p "$PROJECT_NAME"/{src,include,build}
+  cd "$PROJECT_NAME" || return 1
+
+  cat > src/main.cpp <<EOF
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, $PROJECT_NAME!" << std::endl;
+    return 0;
+}
+EOF
+
+  cat > CMakeLists.txt <<EOF
+cmake_minimum_required(VERSION 3.16)
+project($PROJECT_NAME VERSION 0.1.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_executable(\${PROJECT_NAME} src/main.cpp)
+target_include_directories(\${PROJECT_NAME} PRIVATE include)
+EOF
+
+  echo "✅ C++ project '$PROJECT_NAME' initialized."
+  echo "Next steps:"
+  echo "  cd build"
+  echo "  cmake .."
+  echo "  cmake --build ."
+  echo "  ./\$PROJECT_NAME"
+}
+
+__init_cpp

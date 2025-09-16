@@ -1,0 +1,36 @@
+
+
+
+__create_gitignore() {
+    if [ -f ".gitignore" ]; then
+        echo "Error: .gitignore file already exists. Aborting." >&2
+        return 1
+    fi
+
+    local content=$(cat << EOF
+# Build files
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dll
+*.dylib
+
+# Build directories
+build/
+bin/
+lib/
+
+# OS junk
+.DS_Store
+Thumbs.db
+EOF
+    )
+
+    echo -e "$content" > .gitignore
+    echo "Created a .gitignore file for C++"
+}
+
+__create_gitignore
