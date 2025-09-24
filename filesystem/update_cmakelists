@@ -1,0 +1,28 @@
+
+
+
+__update_cmakelists() {
+  local cmake_file="CMakeLists.txt"
+
+  if [[ ! -f $cmake_file ]]; then
+    echo "❌ No $cmake_file found in current directory."
+    return 1
+  fi
+
+  # Generate new block
+  local new_block="set(SRCS
+$(gen_cmake_srcs)
+)"
+
+  # Replace old block or append if not present
+  if grep -q "set(SRCS" "$cmake_file"; then
+    # Use perl for safe multiline replace
+    perl -0777 -i -pe "s/set\\(SRCS.*?\\)/$new_block/s" "$cmake_file"
+    echo "✅ Updated SRCS block in $cmake_file"
+  else
+    echo -e "\n$new_block" >> "$cmake_file"
+    echo "✅ Added SRCS block to $cmake_file"
+  fi
+}
+
+__update_cmakelists "$@"

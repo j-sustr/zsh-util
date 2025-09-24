@@ -1,0 +1,13 @@
+
+
+__gen_cmake_srcs() {
+  local files
+  # Find .cpp files under src/, sort them, strip leading ./ 
+  files=($(find src -type f -name '*.cpp' | sort | sed 's|^\./||'))
+
+  for f in $files; do
+    echo "  $f"
+  done
+}
+
+__gen_cmake_srcs "$@"
