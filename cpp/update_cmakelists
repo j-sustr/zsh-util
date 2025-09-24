@@ -3,26 +3,39 @@
 
 __update_cmakelists() {
   local cmake_file="CMakeLists.txt"
+  echo "🔍 Starting __update_cmakelists..."
+  echo "📂 Target file: $cmake_file"
 
   if [[ ! -f $cmake_file ]]; then
-    echo "❌ No $cmake_file found in current directory."
+    echo "❌ No $cmake_file found in current directory: $(pwd)"
     return 1
   fi
 
-  # Generate new block
+  echo "⚙️  Generating new SRCS block..."
   local new_block="set(SRCS
 $(gen_cmake_srcs)
 )"
+  echo "📜 New block generated:"
+  echo "------------------------"
+  echo "$new_block"
+  echo "------------------------"
 
-  # Replace old block or append if not present
+  echo "🔎 Checking if SRCS block already exists in $cmake_file..."
   if grep -q "set(SRCS" "$cmake_file"; then
-    # Use perl for safe multiline replace
-    perl -0777 -i -pe "s/set\\(SRCS.*?\\)/$new_block/s" "$cmake_file"
-    echo "✅ Updated SRCS block in $cmake_file"
+    echo "✏️  Existing SRCS block found, replacing (Perl-safe)…"
+    # Escape replacement for Perl and use a non-/ delimiter
+    local escaped
+    escaped=$(printf '%s' "$new_block" | perl -pe 's/([\/\\$@])/\\$1/g')
+    perl -0777 -i -pe "s~set\\(SRCS.*?\\)~$escaped~s" "$cmake_file" \
+      && echo "✅ Updated SRCS block in $cmake_file" \
+      || { echo "❌ Perl replace failed"; return 1; }
   else
-    echo -e "\n$new_block" >> "$cmake_file"
+    echo "➕ No SRCS block found, appending new one..."
+    printf "\n%s\n" "$new_block" >> "$cmake_file"
     echo "✅ Added SRCS block to $cmake_file"
   fi
+
+  echo "🎉 Finished updating $cmake_file"
 }
 
 __update_cmakelists "$@"
