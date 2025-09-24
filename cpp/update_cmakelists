@@ -30,9 +30,8 @@ $(gen_cmake_srcs)
       && echo "✅ Updated SRCS block in $cmake_file" \
       || { echo "❌ Perl replace failed"; return 1; }
   else
-    echo "➕ No SRCS block found, appending new one..."
-    printf "\n%s\n" "$new_block" >> "$cmake_file"
-    echo "✅ Added SRCS block to $cmake_file"
+    echo "❌ SRCS block not found"
+    return 1
   fi
 
   echo "🎉 Finished updating $cmake_file"
