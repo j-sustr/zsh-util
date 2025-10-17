@@ -61,10 +61,6 @@ Build/*
 !*.uplugin
 !*.ini
 
-# Optional: ignore large asset caches (only if you use Git LFS)
-*.umap
-*.uasset
-
 EOF
     )
 
