@@ -1,0 +1,120 @@
+
+__create_gitfiles_ue() {
+    if [ -f ".gitignore" ]; then
+        echo "Error: .gitignore file already exists. Aborting." >&2
+        return 1
+    fi
+    if [ -f ".gitattributes" ]; then
+        echo "Error: .gitattributes file already exists. Aborting." >&2
+        return 1
+    fi
+
+    local gitignoreContent=$(cat << EOF
+# Unreal Engine build artifacts
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vscode/
+.vs/
+.idea/
+*.sln
+*.opensdf
+*.sdf
+*.suo
+*.xcodeproj
+*.xcworkspace
+*.VC.db
+*.VC.VC.opendb
+
+# Unreal auto-generated files
+*.log
+*.user
+*.userprefs
+*.orig
+*.tmp
+*_Backup.*
+*.bak
+*.old
+
+# Mac specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+desktop.ini
+
+# Build artifacts
+Build/*
+!Build/**/*.target
+!Build/**/*.cs
+!Build/**/*.ini
+!Build/**/*.xml
+!Build/**/*.uproject
+
+# Config and project files you DO want to track
+!Config/
+!Content/
+!Source/
+!Plugins/
+!*.uproject
+!*.uplugin
+!*.ini
+
+# Optional: ignore large asset caches (only if you use Git LFS)
+*.umap
+*.uasset
+
+EOF
+    )
+
+    echo -e "$gitignoreContent" > .gitignore
+    echo "Created a .gitignore file for Unreal"
+
+
+    local gitattributesContent=$(cat << EOF
+# Normalize line endings for text files
+* text=auto eol=lf
+
+# Force CRLF for Windows-specific batch files
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Unreal Engine assets (use Git LFS)
+*.uasset filter=lfs diff=lfs merge=lfs -text
+*.umap filter=lfs diff=lfs merge=lfs -text
+
+# Binary assets
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.tga filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text
+*.uplugin filter=lfs diff=lfs merge=lfs -text
+
+# Treat config and source files as text
+*.ini text
+*.cpp text
+*.h text
+*.cs text
+*.uproject text
+*.uplugin text
+*.md text
+*.txt text
+*.json text
+*.xml text
+
+# Ignore changes to line endings
+* -crlf
+
+EOF
+    )
+
+    echo -e "$gitattributesContent" > .gitattributes
+    echo "Created a .gitattributes file for Unreal"
+}
+
+__create_gitfiles_ue
