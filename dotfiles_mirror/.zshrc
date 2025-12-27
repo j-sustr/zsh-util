@@ -115,15 +115,15 @@ alias cla="claude"
 
 # antigravity aliases
 alias an="agy"
-alias azc="agy ~/.zshrc"
-alias azp="agy ~/.zprofile"
 alias azu="agy ~/zsh-util"
+# alias azp="agy ~/.zprofile"
+# alias azc="agy ~/.zshrc"
 
 # vscode aliases
 co() { code "${1:-.}"; }
-alias czc="code ~/.zshrc"
-alias czp="code ~/.zprofile"
-alias czu="code ~/zsh-util"
+# alias czc="code ~/.zshrc"
+# alias czp="code ~/.zprofile"
+# alias czu="code ~/zsh-util"
 
 # git aliases
 alias gcl="git clone --depth 1"
