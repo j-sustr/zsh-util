@@ -178,6 +178,7 @@ alias dps="docker ps"
 
 
 # bun
+alias br="bun run"
 alias bi="bun install"
 alias bd="bun dev"
 alias bt="bun test"
