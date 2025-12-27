@@ -1,5 +1,5 @@
 __ls_util() {
-    cd $HOME/.zsh-util/build && ls -1
+    cd $HOME/zsh-util/build && ls -1
 }
 
 __ls_util
