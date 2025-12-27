@@ -26,9 +26,10 @@ autoload -U $fpath[1]/*(.:t)
 
 ## Dotfiles
 
-The project includes a mirrored version of the `.zshrc` file for easier management. This was created using a **Hard Link** so that changes are instantly synchronized and it remains seamless for CLI tools:
+The project includes mirrored versions of the `.zshrc` and `.zprofile` files for easier management. These were created using **Hard Links** so that changes are instantly synchronized:
 
 ```bash
 mkdir -p dotfiles_mirror
 ln ~/.zshrc dotfiles_mirror/.zshrc
+ln ~/.zprofile dotfiles_mirror/.zprofile
 ```
