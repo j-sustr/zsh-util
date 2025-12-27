@@ -23,3 +23,12 @@ make
 fpath=(~/.zsh-util/build $fpath);
 autoload -U $fpath[1]/*(.:t)
 ```
+
+## Dotfiles
+
+The project includes a mirrored version of the `.zshrc` file for easier management. This was created using a **Hard Link** so that changes are instantly synchronized and it remains seamless for CLI tools:
+
+```bash
+mkdir -p dotfiles_mirror
+ln ~/.zshrc dotfiles_mirror/.zshrc
+```
