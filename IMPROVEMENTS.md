@@ -64,6 +64,27 @@ fi
 **Issue:** `git remote show origin` is used as a fallback. This triggers a network request, which can be slow.
 **Proposal:** Suggest running `git remote set-head origin -a` automatically or prompting the user if the local reference is missing, rather than silently hanging on a network call.
 
+## 5. Architectural Recommendations: Adding New Utilities
+
+To maintain a clean and performant shell environment, follow these best practices when adding new functionality:
+
+### A. Use Autoloading (Default Choice)
+For complex functions or scripts used only in ZSH.
+- **Workflow:** Add file to a category folder (e.g., `git/`), add to `Makefile`, run `make`.
+- **Pros:** Fast shell startup (lazy-loading).
+- **Cons:** ZSH-specific.
+
+### B. Use Dedicated Aliases
+For simple one-liners or command mappings.
+- **Workflow:** Add `alias name='command'` directly to `.zshrc` (or a sourced `aliases.zsh`).
+- **Pros:** No extra files.
+- **Cons:** Slows down `.zshrc` if too many are added.
+
+### C. Use `PATH` Scripts (Standalone Tools)
+For utilities written in other languages (Python, Go, Node) or generic Bash scripts.
+- **Workflow:** Place in `~/bin` or `~/.local/bin`.
+- **Pros:** Accessible from any shell or IDE; portable.
+
 ## Implementation Plan
 
 I recommend implementing these changes in the following order:
