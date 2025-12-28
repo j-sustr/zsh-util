@@ -10,6 +10,10 @@ setopt promptsubst
 export CLICOLOR=1
 export DEBUG_COLORS=1
 
+# Make
+alias m="make"
+alias ma="make"
+
 # GCP Cloud
 alias gc="gcloud"
 alias gccgp="gcloud config get-value project"
