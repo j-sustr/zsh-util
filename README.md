@@ -33,3 +33,13 @@ mkdir -p dotfiles_mirror
 ln ~/.zshrc dotfiles_mirror/.zshrc
 ln ~/.zprofile dotfiles_mirror/.zprofile
 ```
+
+### Repairing Links
+
+If a hard link is broken (e.g., by an editor "atomic save"), you can repair all links using:
+
+```bash
+fix_dotfile_links
+```
+
+This utility will detect broken links, synchronize the content (favoring the newer version), and restore the hard link connection.

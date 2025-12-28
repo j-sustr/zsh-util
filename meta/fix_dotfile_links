@@ -1,0 +1,73 @@
+__fix_dotfile_links() {
+  local REPO_ROOT
+  REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo "$HOME/zsh-util")"
+  local MIRROR_DIR="$REPO_ROOT/dotfiles_mirror"
+  
+  if [ ! -d "$MIRROR_DIR" ]; then
+    echo "Error: Mirror directory $MIRROR_DIR not found." >&2
+    return 1
+  fi
+
+  local files=(".zshrc" ".zprofile")
+  local broken_count=0
+
+  for f in "${files[@]}"; do
+    local home_file="$HOME/$f"
+    local mirror_file="$MIRROR_DIR/$f"
+
+    if [ ! -f "$mirror_file" ]; then
+      echo "Warning: Mirror version of $f not found in $MIRROR_DIR. Skipping."
+      continue
+    fi
+
+    if [ ! -f "$home_file" ]; then
+      echo "Fixing $f: Home version missing. Restoring link..."
+      ln "$mirror_file" "$home_file"
+      broken_count=$((broken_count + 1))
+      continue
+    fi
+
+    local home_inode mirror_inode
+    home_inode=$(ls -i "$home_file" | awk '{print $1}')
+    mirror_inode=$(ls -i "$mirror_file" | awk '{print $1}')
+
+    if [ "$home_inode" != "$mirror_inode" ]; then
+      echo "Broken link detected for $f (Home: $home_inode, Mirror: $mirror_inode)"
+      
+      # Safety check: avoid overwriting non-empty file with empty file
+      local home_size mirror_size
+      home_size=$(find "$home_file" -printf "%s" 2>/dev/null || stat -f%z "$home_file")
+      mirror_size=$(find "$mirror_file" -printf "%s" 2>/dev/null || stat -f%z "$mirror_file")
+
+      if [ "$home_size" -eq 0 ] && [ "$mirror_size" -gt 0 ]; then
+        echo "Warning: Home version of $f is empty but mirror is not. Restoring from mirror..."
+        cat "$mirror_file" > "$home_file"
+      elif [ "$mirror_size" -eq 0 ] && [ "$home_size" -gt 0 ]; then
+        echo "Warning: Mirror version of $f is empty but home is not. Syncing from home..."
+        cat "$home_file" > "$mirror_file"
+      elif [ "$home_file" -nt "$mirror_file" ]; then
+        echo "Home version of $f is newer. Syncing to mirror..."
+        cat "$home_file" > "$mirror_file"
+      else
+        echo "Mirror version of $f is newer (or same age). Syncing to home..."
+        cat "$mirror_file" > "$home_file"
+      fi
+
+      echo "Creating backup: ${home_file}.bak_broken_link"
+      cp "$home_file" "${home_file}.bak_broken_link"
+      
+      rm "$home_file"
+      ln "$mirror_file" "$home_file"
+      echo "✅ Restored hard link for $f"
+      broken_count=$((broken_count + 1))
+    fi
+  done
+
+  if [ $broken_count -eq 0 ]; then
+    echo "✅ All dotfile links are healthy."
+  else
+    echo "Done. $broken_count links were repaired."
+  fi
+}
+
+__fix_dotfile_links "$@"
