@@ -1,8 +1,6 @@
 fpath=(~/zsh-util/build $fpath);
 autoload -U $fpath[1]/*(.:t)
 
-# direnv
-eval "$(direnv hook zsh)"
 
 # enable zsh colors and prompt parameter expansion
 autoload -U colors && colors
@@ -365,3 +363,6 @@ export PATH="/Users/jan/.antigravity/antigravity/bin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# direnv
+eval "$(direnv hook zsh)"
