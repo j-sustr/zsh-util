@@ -17,6 +17,12 @@ alias gccsp="gcloud config set project"
 alias gcp="gcloud projects"
 alias gcpl="gcloud projects list --format=\"value(projectId)\""
 
+alias gca-admin='gcloud config configurations activate billing-admin'
+alias gca-flash='gcloud config configurations activate flashcards'
+alias gca-tf='gcloud config configurations activate learn-tf'
+alias gca-alice='gcloud config configurations activate alice'
+alias gca-ecom='gcloud config configurations activate ecom'
+
 # AWS Cloud
 # variables - config
 export AWS_PROFILE=bbd
