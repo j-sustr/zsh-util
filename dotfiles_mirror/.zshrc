@@ -14,6 +14,14 @@ export DEBUG_COLORS=1
 alias m="make"
 alias ma="make"
 
+alias mf="make frontend"
+alias mb="make backend"
+alias mi="make infra"
+alias mae="make auth-emulator"
+alias mcil="make ci-logs"
+
+
+
 # GCP Cloud
 alias gc="gcloud"
 alias gccgp="gcloud config get-value project"
