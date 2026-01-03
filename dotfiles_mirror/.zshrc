@@ -202,6 +202,7 @@ alias bi="bun install"
 alias bd="bun dev"
 alias bt="bun test"
 alias ba="bun add"
+alias btc="bun run typecheck"
 alias bcnext="bun create next-app" # create next app
 alias bsha="bunx --bun shadcn@latest init" # init shadcn
 alias bsha="bunx --bun shadcn@latest add" # add shadcn component
