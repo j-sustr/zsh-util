@@ -53,10 +53,7 @@ alias cdpics="cd ~/Pictures"
 
 # Work hubs
 alias cdw="cd $WORK_DIR"
-alias cdpl="cd $WORK_DIR/Planning"
-alias cdplan="cd $WORK_DIR/Planning"
-alias cdcons="cd $WORK_DIR/Planning/Consultations"
-alias cdcs="cd $WORK_DIR/Planning/Consultations"
+alias cds="cd $WORK_DIR/Specialists"
 alias cdpc="cd $WORK_DIR/POC"
 alias cdpoc="cd $WORK_DIR/POC"
 alias cdp="cd $WORK_DIR/Products"
@@ -70,6 +67,10 @@ alias cdf="cd $WORK_DIR/Features"
 alias cdfi="cd $WORK_DIR/Finance"
 
 # dead
+alias cdpl="cd $WORK_DIR/Planning"
+alias cdplan="cd $WORK_DIR/Planning"
+alias cdcons="cd $WORK_DIR/Planning/Consultations"
+alias cdcs="cd $WORK_DIR/Planning/Consultations"
 alias cdr="cd $WORK_DIR/Reinvention"
 alias cdc="cd $WORK_DIR/CodeLibrary"
 alias cdagy="cd $WORK_DIR/Antigravity"
