@@ -14,11 +14,13 @@ export DEBUG_COLORS=1
 alias m="make"
 alias ma="make"
 
+alias mtc="make typecheck"
 alias mf="make frontend"
 alias mb="make backend"
 alias mi="make infra"
 alias mae="make auth-emulator"
 alias mcil="make ci-logs"
+alias msb="make storybook"
 
 
 
