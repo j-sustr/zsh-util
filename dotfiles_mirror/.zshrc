@@ -14,6 +14,7 @@ export DEBUG_COLORS=1
 alias m="make"
 alias ma="make"
 
+alias mt="make test"
 alias mtc="make typecheck"
 alias mf="make frontend"
 alias mb="make backend"
