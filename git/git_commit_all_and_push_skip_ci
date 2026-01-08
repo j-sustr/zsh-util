@@ -1,0 +1,9 @@
+
+
+__git_commit_all_and_push_skip_ci() {
+    git_commit_all_skip_ci "$@"
+
+    git push
+}
+
+__git_commit_all_and_push_skip_ci "$@"

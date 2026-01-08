@@ -1,0 +1,14 @@
+
+
+__git_commit_all_skip_ci() {
+    if [ "$#" -gt 0 ]; then
+        message="$* [skip ci]"
+    else
+        message="u [skip ci]"
+    fi;
+
+    git add .;
+    git commit -m "$message" --no-verify;
+}
+
+__git_commit_all_skip_ci "$@"
