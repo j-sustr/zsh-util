@@ -171,14 +171,14 @@ alias gcb="git checkout -b"
 alias gcob="git checkout -b"
 alias gca="git_commit_all"
 alias ca="git_commit_all"
-alias cas="git_commit_all_skip_ci"
 alias gb="git branch"
 alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'"
 alias grbom="git rebase origin/main"
 alias grs="git reset --soft HEAD~1"
 
 alias cap="git_commit_all_and_push"
-alias caps="git_commit_all_and_push_skip_ci"
+alias cas="git_commit_all_skip_ci"
+alias casp="git_commit_all_and_push_skip_ci"
 
 # git backup branches
 alias gbb="create_git_backup_branch"
