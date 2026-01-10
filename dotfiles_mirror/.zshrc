@@ -54,6 +54,7 @@ alias cdpics="cd ~/Pictures"
 
 # Work hubs
 alias cdw="cd $WORK_DIR"
+alias cdwr="cd $WORK_DIR/Writing"
 alias cdg="cd $WORK_DIR/German"
 alias cds="cd $WORK_DIR/Specialists"
 alias cdpc="cd $WORK_DIR/POC"
