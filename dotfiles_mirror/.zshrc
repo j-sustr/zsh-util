@@ -196,7 +196,7 @@ alias grv="gh repo view --web"
 alias grf="gh repo fork --remote"
 alias grr="gh repo rename"
 
-alias grc="gh repo create ${PWD##*/} --private"
+alias grc="create_gh_repo"
 
 # docker aliases
 alias dc="docker compose"
